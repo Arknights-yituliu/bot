@@ -9,12 +9,10 @@ RUN sed -i '/zh_CN.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
 
 WORKDIR /app
 
-COPY entrypoint.sh .
-ENTRYPOINT /app/entrypoint.sh
-
 COPY requirements.txt .
 RUN pip install -r requirements.txt
 RUN playwright install-deps
 RUN playwright install webkit
 
 COPY . .
+ENTRYPOINT /app/entrypoint.sh
