@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "yituliumaterial"
+version = "0.1.0"
+description = ""
+authors = ["Zhao Zuohong <zhbaor@zhaozuohong.vip>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+bottle = "^0.12.24"
+requests = "^2.28.2"
+playwright = "^1.31.1"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[[tool.poetry.source]]
+name = "mirrors"
+url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
+default = true
+secondary = false

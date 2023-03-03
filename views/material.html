@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>一图流每日版</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link href="/static/sprites.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container-fluid d-flex justify-content-center">
+      <div class="fw-bold fs-5" style="color: var(--bs-orange)">
+        橙色期望和效率都最优
+      </div>
+      <div class="fw-bold fs-5 mx-2" style="color: var(--bs-indigo)">
+        紫色效率最高(长期最优)
+      </div>
+      <div class="fw-bold fs-5 text-success">
+        绿色期望最低(短期最优)
+      </div>
+    </div>
+    <div class="container-fluid text-center">
+      <div class="fs-5 my-1">
+        每日更新版一图流链接：yituliu.site，更新时间：{{ today }}
+      </div>
+      <div class="fs-5 mb-2">数据源：penguin-stats.cn</div>
+    </div>
+    <div class="container-fluid">
+      <div class="row row-cols-2 g-2">
+        % for material in data:
+        <div class="col">
+          <div class="border rounded bg-light p-3 h-100">
+            <div class="d-flex align-items-center mb-1">
+              <div class="overflow-hidden position-relative" style="height: 39px; width: 39px;">
+                <div
+                  style="scale: 0.3; top: -26px; left: -26px"
+                  class="bg-{{ material[0]["itemId"] }}large position-absolute translate-middle"
+                ></div>
+              </div>
+              <div class="fs-5 fw-bold text-primary ms-1">{{ material[0]["itemType"] }}</div>
+            </div>
+            <table class="table table-sm mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">关卡名称</th>
+                  <th scope="col">副产品</th>
+                  <th scope="col">期望理智</th>
+                  <th scope="col">掉率</th>
+                  <th scope="col">理智转化率</th>
+                </tr>
+              </thead>
+              <tbody>
+                % for stage in material:
+                % if stage["stageColor"] == 4:
+                <tr class="fw-bold" style="color: var(--bs-orange)">
+                % elif stage["stageColor"] == 3:
+                <tr class="fw-bold" style="color: var(--bs-indigo)">
+                % elif stage["stageColor"] == 2:
+                <tr class="text-primary">
+                % elif stage["stageColor"] == 1:
+                <tr class="fw-bold text-success">
+                % elif stage["stageColor"] == -1:
+                <tr class="fw-bold text-danger">
+                % else:
+                <tr>
+                %end
+                  <td>{{ stage["stageCode"] }}</td>
+                  <td>
+                    % if stage["secondaryId"] != 1:
+                    <div class="overflow-hidden position-relative" style="height: 24px; width: 24px;">
+                      <div
+                        style="scale: 0.48"
+                        class="bg-{{ stage["secondaryId"] }} position-absolute translate-middle"
+                      ></div>
+                    </div>
+                    % end
+                  </td>
+                  <td>{{ round(stage["apExpect"], 2) }}</td>
+                  <td>{{ str(round(stage["knockRating"] * 100, 1)) + "%" }}</td>
+                  <td>{{ str(round(stage["stageEfficiency"], 1)) + "%" }}</td>
+                </tr>
+                %end
+              </tbody>
+            </table>
+          </div>
+        </div>
+        % end
+      </div>
+    </div>
+  </body>
+</html>
