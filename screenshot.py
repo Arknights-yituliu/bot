@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 from datetime import datetime
 
 
-now = datetime.today().strftime("%Y-%m-%d_%H-%M-%S")
+now = datetime.today().strftime("%Y%m%d")
 
 with sync_playwright() as p:
     browser = p.webkit.launch()
