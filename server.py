@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 import locale
 
-r = requests.get("https://backend.yituliu.site/api/find/stage/t3?expCoefficient=0.625")
+r = requests.get("https://backend.yituliu.site/stage/t3?expCoefficient=0.625")
 data = r.json()["data"]
 
 locale.setlocale(locale.LC_ALL, "zh_CN.UTF-8")
